@@ -39,7 +39,7 @@ func TestLoadJSONFile_GoodJSON(t *testing.T) {
 }
 
 func TestLoadJSONFileViaCLI_BadJSON(t *testing.T) {
-	c, err := configfile.LoadJSONFileViaCLI[ExampleConfig]("config", "config-bad.json")
+	c, err := configfile.LoadJSONFileViaCLI[ExampleConfig]("config", "testdata/config-bad.json")
 	should.So(t, c, should.Equal, ExampleConfig{})
 	should.So(t, err, should.NOT.BeNil)
 }
