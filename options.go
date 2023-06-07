@@ -29,6 +29,9 @@ func New(pointer any, options ...func(*config)) error {
 		}
 		c.reader = bytes.NewReader(raw)
 	}
+	if c.reader == nil {
+		return ErrMissingSource
+	}
 	return json.NewDecoder(c.reader).Decode(pointer)
 }
 
