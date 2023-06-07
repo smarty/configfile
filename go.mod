@@ -1,3 +1,3 @@
-module github.com/smarty/configfile
+module github.com/smarty/configfile/v2
 
 go 1.18
