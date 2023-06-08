@@ -34,5 +34,5 @@ func TestURLUnmarshal_GoodJSON(t *testing.T) {
 	var thing URLThing
 	err := json.Unmarshal([]byte(`{"address":"https://smarty.com"}`), &thing)
 	should.So(t, err, should.BeNil)
-	should.So(t, thing.Address.String(), should.Equal, "https://smarty.com")
+	should.So(t, thing.Address.URL.String(), should.Equal, "https://smarty.com")
 }

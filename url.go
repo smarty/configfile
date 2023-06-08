@@ -6,9 +6,9 @@ import (
 	"net/url"
 )
 
-type URL struct{ url.URL }
+type URL struct{ URL *url.URL }
 
-func (this *URL) UnmarshalJSON(b []byte) error {
+func (this *URL) UnmarshalJSON(b []byte) (err error) {
 	if string(b) == "null" {
 		return nil
 	}
@@ -18,10 +18,6 @@ func (this *URL) UnmarshalJSON(b []byte) error {
 	if !ok {
 		return fmt.Errorf("invalid url: %#v", v)
 	}
-	u, err := url.Parse(raw)
-	if err != nil {
-		return err
-	}
-	this.URL = *u
-	return nil
+	this.URL, err = url.Parse(raw)
+	return err
 }
