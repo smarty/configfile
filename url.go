@@ -18,6 +18,9 @@ func (this *URL) UnmarshalJSON(b []byte) (err error) {
 	if !ok {
 		return fmt.Errorf("invalid url: %#v", v)
 	}
+	if len(raw) == 0 {
+		return nil
+	}
 	this.URL, err = url.Parse(raw)
 	return err
 }

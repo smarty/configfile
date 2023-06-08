@@ -18,6 +18,12 @@ func TestURLUnmarshal_NullConvention(t *testing.T) {
 	should.So(t, err, should.BeNil)
 	should.So(t, thing.Address, should.Equal, configfile.URL{})
 }
+func TestURLUnmarshal_EmptyString(t *testing.T) {
+	var thing URLThing
+	err := json.Unmarshal([]byte(`{"address":""}`), &thing)
+	should.So(t, err, should.BeNil)
+	should.So(t, thing.Address, should.Equal, configfile.URL{})
+}
 func TestURLUnmarshal_BadValue(t *testing.T) {
 	var thing URLThing
 	err := json.Unmarshal([]byte(`{"address":42}`), &thing)
