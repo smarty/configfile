@@ -3,6 +3,7 @@ package configfile
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -18,6 +19,10 @@ func LoadJSONFileViaCLI(pointer any, flagName, defaultFilename string) error {
 func LoadJSONFile(pointer any, filename string) error {
 	raw, err := os.ReadFile(filename)
 	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			starter, _ := json.MarshalIndent(pointer, "", "  ")
+			_ = os.WriteFile(filename, starter, 0644)
+		}
 		return fmt.Errorf("configuration error: unable to read JSON configuration file: %w", err)
 	}
 	return LoadJSON(pointer, bytes.NewReader(raw))
